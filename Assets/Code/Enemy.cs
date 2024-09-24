@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Rigidbody2D rigidBody2D;
+    // Variables
+    [SerializeField] private Rigidbody2D rigidBody2D;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float velocityMultiplier;
-
-
+    private float speed = 200f;
+    private float velocityMultiplier = 0.01f;
     private float speedIncrement = 50f; // Incremento de velocidad
     private Vector2 velocity;
     private Vector2 startVelocity;
     private Vector2 startPosition;
 
+    // Establece la posición inicial y la velocidad inicial del enemigo.
     void Start()
     {
         startPosition = transform.position;
@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
         rigidBody2D.velocity = startVelocity;
     }
 
+    // Se actualiza la velocidad del enemigo.
     void FixedUpdate()
     {
         speed += speedIncrement * Time.fixedDeltaTime;
@@ -27,11 +28,13 @@ public class Enemy : MonoBehaviour
 
     }
 
+    // Se detecta la colisión del enemigo con un objeto. En caso de colisión, se ajusta la velocidad del enemigo.
     private void OnCollisionEnter2D(Collision2D collision)
     {
         velocityFix();
     }
 
+    // Se ajusta la velocidad del enemigo, en caso de que sea menor a un valor mínimo, para evitar que el enemigo quede detenido.
     private void velocityFix()
     {
         float velocityDelta = 0.05f;

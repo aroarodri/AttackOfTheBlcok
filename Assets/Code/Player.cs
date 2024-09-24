@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Variables
     private Camera cam;
 
-    // Start is called before the first frame update
+    // SE realiza la configuración inicial.
     void Start()
     {
         Cursor.visible = false;
         cam = Camera.main;
     }
 
-    // Update is called once per frame
+    // Se actualiza la posición del jugador, mediante el cursor del mouse.
     void Update()
     {
         transform.position = (Vector2) cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
+    // Se detecta la colisión del jugador con un enemigo. En caso de colisión, se pierde el juego.
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player collision");

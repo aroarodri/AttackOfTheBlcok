@@ -6,6 +6,7 @@ public class EnemiesSpawner : MonoBehaviour
 
     private int numberOfSpawnPoints = 2;
     private Vector3 spawnAreaSize = new Vector3(10, 10, 10);
+    private Vector3[] spawnPoints;
 
     private float spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
     private float timeSinceLastSpawn = 0f;
@@ -38,13 +39,13 @@ public class EnemiesSpawner : MonoBehaviour
 
     private void GenerateSpawnPoints()
     {
-        spawnManagerValues.spawnPoints = new Vector3[numberOfSpawnPoints];
+        spawnPoints = new Vector3[numberOfSpawnPoints];
         for (int i = 0; i < numberOfSpawnPoints; i++)
         {
             float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
             float y = Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2);
             float z = Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2);
-            spawnManagerValues.spawnPoints[i] = new Vector3(x, y, z);
+            spawnPoints[i] = new Vector3(x, y, z);
         }
     }
 
@@ -54,11 +55,11 @@ public class EnemiesSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfSpawnPoints; i++)
         {
-            GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn, spawnManagerValues.spawnPoints[currentSpawnPointIndex], Quaternion.identity);
+            GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn, spawnPoints[currentSpawnPointIndex], Quaternion.identity);
 
             enemy.name = spawnManagerValues.name + nName;
 
-            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnManagerValues.spawnPoints.Length;
+            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnPoints.Length;
 
             nName++;
         }

@@ -13,11 +13,4 @@ MonoBehaviour:
   m_Name: EnemiesSO
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 5689118604299278584, guid: 474d56e095c42e84bb3eafe38b055b73, type: 3}
-  spawnPoints:
-  - {x: 3.213414, y: 4.0342236, z: 0.16518068}
-  - {x: -3.6597118, y: -2.7455225, z: -0.41091728}
-  - {x: -1.8659883, y: -4.7779455, z: 0.5155711}
-  - {x: 3.7452793, y: 4.6154976, z: 0.58449936}
-  - {x: 3.164239, y: -3.3029864, z: -1.2870975}
-  name: Enemy
-  numberOfPrefabsToCreate: 5
+  name: Eagle
