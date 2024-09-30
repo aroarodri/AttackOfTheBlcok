@@ -1,14 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> Corazones;
 
-    // Método que se ejecuta cuando el jugador pierde el juego.
-    public void Lose()
-    {
-        SceneManager.LoadScene("GameOver");
-    }
+    private int vidas = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -20,5 +18,40 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void perderVidas()
+    {
+        vidas--;
+
+        if (vidas <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+        else
+        {
+            reiniciarNivel();
+            if (Corazones.Count > 0)
+            {
+                GameObject corazon = Corazones[Corazones.Count - 1];
+                Corazones.RemoveAt(Corazones.Count - 1);
+                corazon.SetActive(false);
+            }
+        }
+    }
+
+    public void reiniciarNivel()
+    {
+        /*ladrillosRestantes = GameObject.FindGameObjectsWithTag("Ladrillo").Length + GameObject.FindGameObjectsWithTag("DobleLadrillo").Length;
+
+        FindObjectOfType<Bola>().reiniciarBola();
+        FindObjectOfType<Jugador>().reiniciarJugador();*/
+
+    }
+
+    // Método que se ejecuta cuando el jugador pierde el juego.
+    public void Lose()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
