@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void perderVidas()
+    public void LoseHeart()
     {
         vidas--;
 
         if (vidas <= 0)
         {
-            SceneManager.LoadScene("GameOver");
+            Lose();
         }
         else
         {
@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     // Método que se ejecuta cuando el jugador pierde el juego.
     public void Lose()
     {
+        Cursor.visible = true;
         SceneManager.LoadScene("GameOver");
     }
 }

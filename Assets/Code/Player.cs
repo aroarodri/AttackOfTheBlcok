@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         Debug.Log("Player collision");
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            FindObjectOfType<GameManager>().Lose();
+            FindObjectOfType<GameManager>().LoseHeart();
         }
     }
 }
