@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,23 +31,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            reiniciarNivel();
             if (Corazones.Count > 0)
             {
                 GameObject corazon = Corazones[Corazones.Count - 1];
                 Corazones.RemoveAt(Corazones.Count - 1);
                 corazon.SetActive(false);
+                Player player = FindObjectOfType<Player>();
+                if (player != null)
+                    RestoreSizeAfterLosingHeart(player);
             }
         }
-    }
-
-    public void reiniciarNivel()
-    {
-        /*ladrillosRestantes = GameObject.FindGameObjectsWithTag("Ladrillo").Length + GameObject.FindGameObjectsWithTag("DobleLadrillo").Length;
-
-        FindObjectOfType<Bola>().reiniciarBola();
-        FindObjectOfType<Jugador>().reiniciarJugador();*/
-
     }
 
     // Método que se ejecuta cuando el jugador pierde el juego.
@@ -54,5 +48,27 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = true;
         SceneManager.LoadScene("GameOver");
+    }
+
+    public void ActivatePowerUp()
+    {
+        Debug.Log("PowerUp Activado");
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            player.transform.localScale *= 0.5f; // Reduce el tamaño del jugador a la mitad
+            StartCoroutine(RestoreSizeAfterDelay(10f, player));
+        }
+    }
+
+    private IEnumerator RestoreSizeAfterDelay(float delay, Player player)
+    {
+        yield return new WaitForSeconds(delay);
+        player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador
+    }
+
+    private void RestoreSizeAfterLosingHeart(Player player)
+    {
+        player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador
     }
 }

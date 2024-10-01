@@ -4,14 +4,14 @@ public class EnemiesSpawner : MonoBehaviour
 {
     public SpawnEnemiesManager spawnManagerValues;
 
-    private int numberOfSpawnPoints = 2;
-    private Vector3 spawnAreaSize = new Vector3(10, 10, 10);
-    private Vector3[] spawnPoints;
+    private int _numberOfSpawnPoints = 2;
+    private Vector3 _spawnAreaSize = new(10, 10, 10);
+    private Vector3[] _spawnPoints;
 
-    private float spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
-    private float timeSinceLastSpawn = 0f;
+    private float _spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
+    private float _timeSinceLastSpawn = 0f;
 
-    private int nName;
+    private int _nName;
 
     void Start()
     {
@@ -22,16 +22,16 @@ public class EnemiesSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (nName >= 10)
+        if (_nName >= 10)
         {
             return;
         }
 
-        timeSinceLastSpawn += Time.deltaTime;
+        _timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= spawnInterval)
+        if (_timeSinceLastSpawn >= _spawnInterval)
         {
-            timeSinceLastSpawn = 0f;
+            _timeSinceLastSpawn = 0f;
             GenerateSpawnPoints();
             SpawnEnemies();
         }
@@ -39,13 +39,13 @@ public class EnemiesSpawner : MonoBehaviour
 
     private void GenerateSpawnPoints()
     {
-        spawnPoints = new Vector3[numberOfSpawnPoints];
-        for (int i = 0; i < numberOfSpawnPoints; i++)
+        _spawnPoints = new Vector3[_numberOfSpawnPoints];
+        for (int i = 0; i < _numberOfSpawnPoints; i++)
         {
-            float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
-            float y = Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2);
-            float z = Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2);
-            spawnPoints[i] = new Vector3(x, y, z);
+            float x = Random.Range(-_spawnAreaSize.x / 2, _spawnAreaSize.x / 2);
+            float y = Random.Range(-_spawnAreaSize.y / 2, _spawnAreaSize.y / 2);
+            float z = Random.Range(-_spawnAreaSize.z / 2, _spawnAreaSize.z / 2);
+            _spawnPoints[i] = new Vector3(x, y, z);
         }
     }
 
@@ -53,15 +53,15 @@ public class EnemiesSpawner : MonoBehaviour
     {
         int currentSpawnPointIndex = 0;
 
-        for (int i = 0; i < numberOfSpawnPoints; i++)
+        for (int i = 0; i < _numberOfSpawnPoints; i++)
         {
-            GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn, spawnPoints[currentSpawnPointIndex], Quaternion.identity);
+            GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn, _spawnPoints[currentSpawnPointIndex], Quaternion.identity);
 
-            enemy.name = spawnManagerValues.name + nName;
+            enemy.name = spawnManagerValues.name + _nName;
 
-            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnPoints.Length;
+            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % _spawnPoints.Length;
 
-            nName++;
+            _nName++;
         }
     }
 }
