@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Vector3 OriginalScale { get; private set; }
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip powerUpSound, dieSound;
+
     // SE realiza la configuración inicial.
     void Start()
     {
@@ -31,15 +34,20 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && !isInvincible)
         {
+            audioSource.clip = dieSound;
+            audioSource.Play();
+
             FindObjectOfType<GameManager>().LoseHeart();
             StartCoroutine(BecomeInvincible());
         }
 
         if (collision.gameObject.CompareTag("PowerUp"))
         {
-            Debug.Log("Star trigger");
-            FindObjectOfType<GameManager>().ActivatePowerUp();
+            audioSource.clip = powerUpSound;
+            audioSource.Play();
 
+            FindObjectOfType<GameManager>().ActivatePowerUp();
+            Destroy(collision.gameObject);
         }
     }
 

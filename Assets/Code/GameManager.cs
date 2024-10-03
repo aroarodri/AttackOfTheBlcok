@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> Corazones;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gameSound;
 
     private int vidas = 3;
 
@@ -40,6 +42,15 @@ public class GameManager : MonoBehaviour
                 if (player != null)
                     RestoreSizeAfterLosingHeart(player);
             }
+            if (Corazones.Count <= 2 && Corazones.Count >= 1)
+            {
+                PowerUp powerUp = FindObjectOfType<PowerUp>();
+                if (powerUp != null)
+                {
+                    powerUp.GenerateSpawnPoint();
+                    StartCoroutine(powerUp.SpwanPowerUp());
+                }
+            }
         }
     }
 
@@ -52,7 +63,6 @@ public class GameManager : MonoBehaviour
 
     public void ActivatePowerUp()
     {
-        Debug.Log("PowerUp Activado");
         Player player = FindObjectOfType<Player>();
         if (player != null)
         {
