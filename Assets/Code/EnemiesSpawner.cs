@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class EnemiesSpawner : MonoBehaviour
 {
+    // Variables
     public SpawnEnemiesManager spawnManagerValues;
 
-    private int _numberOfSpawnPoints = 2;
+    private readonly int _numberOfSpawnPoints = 2;
     private Vector3 _spawnAreaSize = new(10, 10, 10);
     private Vector3[] _spawnPoints;
 
-    private float _spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
+    private readonly float _spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
     private float _timeSinceLastSpawn = 0f;
 
     private int _nName;
@@ -37,6 +38,7 @@ public class EnemiesSpawner : MonoBehaviour
         }
     }
 
+    // Genera los puntos de spawn de los enemigos aleatoriamente.
     private void GenerateSpawnPoints()
     {
         _spawnPoints = new Vector3[_numberOfSpawnPoints];
@@ -49,6 +51,7 @@ public class EnemiesSpawner : MonoBehaviour
         }
     }
 
+    // Genera los enemigos en los puntos de spawn.
     private void SpawnEnemies()
     {
         int currentSpawnPointIndex = 0;

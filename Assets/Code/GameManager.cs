@@ -5,24 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Variables
     [SerializeField] private List<GameObject> Corazones;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip gameSound;
 
     private int vidas = 3;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    // Metodo que controla la perdida de vidas del jugador.
+    // Además, se encarga de generar un power up cuando el jugador pierde una vida.
     public void LoseHeart()
     {
         vidas--;
@@ -61,22 +52,25 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
+    // Método que activa el power up que reduce el tamaño a la mitad del jugador.
     public void ActivatePowerUp()
     {
         Player player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.transform.localScale *= 0.5f; // Reduce el tamaño del jugador a la mitad
+            player.transform.localScale *= 0.5f;
             StartCoroutine(RestoreSizeAfterDelay(10f, player));
         }
     }
 
+    // Corrutina que restaura el tamaño del jugador después de un tiempo determinado.
     private IEnumerator RestoreSizeAfterDelay(float delay, Player player)
     {
         yield return new WaitForSeconds(delay);
         player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador
     }
 
+    // Método que restaura el tamaño del jugador después de perder una vida.
     private void RestoreSizeAfterLosingHeart(Player player)
     {
         player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador

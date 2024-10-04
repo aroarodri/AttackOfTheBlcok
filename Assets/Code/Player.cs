@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     }
 
     // Se detecta la colisión del jugador con un enemigo. En caso de colisión, se pierde el juego.
+    // Si se colisiona con un power up, se activa el power up.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isInvincible)

@@ -3,23 +3,12 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    // Variables
     public GameObject powerUpToSpawn;
     private Vector3 randomSpawnPoint;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    // Instanciar el GameObject en la posición aleatoria en un intervalo de tiempo aleatorio
+    // Instanciar el GameObject en la posición aleatoria en un intervalo de tiempo aleatorio entre 1 y 3 segundos.
     public IEnumerator SpwanPowerUp()
     {
         float interval = Random.Range(1f, 3f);
@@ -28,6 +17,7 @@ public class PowerUp : MonoBehaviour
         Instantiate(powerUpToSpawn, randomSpawnPoint, Quaternion.identity);
     }
 
+    // Generar un punto de spawn aleatorio dentro de los límites de la pantalla.
     public void GenerateSpawnPoint()
     {
         // Obtener los límites de la pantalla
