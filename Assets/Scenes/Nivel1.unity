@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a915c896216e122488bb8b5beb4f7fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Corazones:
+  heartsList:
   - {fileID: 1963401567}
   - {fileID: 1215785230}
   - {fileID: 1255746249}

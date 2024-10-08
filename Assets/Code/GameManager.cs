@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // Variables
-    [SerializeField] private List<GameObject> Corazones;
+    [SerializeField] private List<GameObject> heartsList;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip gameSound;
 
@@ -24,16 +24,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (Corazones.Count > 0)
+            if (heartsList.Count > 0)
             {
-                GameObject corazon = Corazones[Corazones.Count - 1];
-                Corazones.RemoveAt(Corazones.Count - 1);
+                GameObject corazon = heartsList[heartsList.Count - 1];
+                heartsList.RemoveAt(heartsList.Count - 1);
                 corazon.SetActive(false);
                 Player player = FindObjectOfType<Player>();
                 if (player != null)
                     RestoreSizeAfterLosingHeart(player);
             }
-            if (Corazones.Count <= 2 && Corazones.Count >= 1)
+            if (heartsList.Count <= 2 && heartsList.Count >= 1)
             {
                 PowerUp powerUp = FindObjectOfType<PowerUp>();
                 if (powerUp != null)
@@ -67,12 +67,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator RestoreSizeAfterDelay(float delay, Player player)
     {
         yield return new WaitForSeconds(delay);
-        player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador
+        player.transform.localScale = player.originalScale; // Restaurar el tamaño original del jugador
     }
 
     // Método que restaura el tamaño del jugador después de perder una vida.
     private void RestoreSizeAfterLosingHeart(Player player)
     {
-        player.transform.localScale = player.OriginalScale; // Restaurar el tamaño original del jugador
+        player.transform.localScale = player.originalScale; // Restaurar el tamaño original del jugador
     }
 }

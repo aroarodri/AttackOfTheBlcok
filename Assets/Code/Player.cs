@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private Camera cam;
     private bool isInvincible = false;
     private SpriteRenderer spriteRenderer;
-    public Vector3 OriginalScale { get; private set; }
+    public Vector3 originalScale { get; private set; }
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip powerUpSound, dieSound;
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
         cam = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        OriginalScale = transform.localScale;
+        originalScale = transform.localScale;
     }
 
     // Se actualiza la posición del jugador, mediante el cursor del mouse.

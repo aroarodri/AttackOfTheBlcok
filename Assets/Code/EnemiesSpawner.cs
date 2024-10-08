@@ -18,15 +18,14 @@ public class EnemiesSpawner : MonoBehaviour
     {
         GenerateSpawnPoints();
         SpawnEnemies();
+
+        InvokeRepeating(nameof(SpawnEnemies), 2f, 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_nName >= 10)
-        {
-            return;
-        }
+
 
         _timeSinceLastSpawn += Time.deltaTime;
 
@@ -54,7 +53,13 @@ public class EnemiesSpawner : MonoBehaviour
     // Genera los enemigos en los puntos de spawn.
     private void SpawnEnemies()
     {
+        GenerateSpawnPoints();
         int currentSpawnPointIndex = 0;
+
+        if (_nName >= 10)
+        {
+            return;
+        }
 
         for (int i = 0; i < _numberOfSpawnPoints; i++)
         {
