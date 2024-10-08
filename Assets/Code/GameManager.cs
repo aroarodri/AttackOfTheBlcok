@@ -52,6 +52,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
+    public void Home()
+    {
+        Cursor.visible = true;
+        SceneManager.LoadScene("Home");
+    }
+
     // Método que activa el power up que reduce el tamaño a la mitad del jugador.
     public void ActivatePowerUp()
     {

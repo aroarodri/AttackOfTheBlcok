@@ -18,4 +18,9 @@ public class HomeScene : MonoBehaviour
     {
         SceneManager.LoadScene("Nivel1");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
