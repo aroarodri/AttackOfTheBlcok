@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
         {
             if (heartsList.Count > 0)
             {
-                GameObject corazon = heartsList[heartsList.Count - 1];
-                heartsList.RemoveAt(heartsList.Count - 1);
+                GameObject corazon = heartsList[vidas];
+                //heartsList.RemoveAt(heartsList.Count - 1);
                 corazon.SetActive(false);
                 Player player = FindObjectOfType<Player>();
                 if (player != null)
@@ -42,6 +42,16 @@ public class GameManager : MonoBehaviour
                     StartCoroutine(powerUp.SpwanPowerUp());
                 }
             }
+        }
+    }
+
+    //metodo para reiniciar las vidas del jugador
+    public void ResetHearts()
+    {
+        vidas = 3;
+        foreach (GameObject corazon in heartsList)
+        {
+            corazon.SetActive(true);
         }
     }
 
