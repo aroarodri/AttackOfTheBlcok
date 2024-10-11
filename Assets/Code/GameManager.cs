@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip gameSound;
 
     private int vidas = 3;
+    private int finalScore = 3;
 
     // Metodo que controla la perdida de vidas del jugador.
     // Además, se encarga de generar un power up cuando el jugador pierde una vida.
@@ -20,11 +21,12 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0)
         {
+            SaveScore();
             Lose();
         }
         else
         {
-            if (heartsList.Count > 0)
+            if (vidas > 0)
             {
                 GameObject corazon = heartsList[vidas];
                 //heartsList.RemoveAt(heartsList.Count - 1);
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
                 if (player != null)
                     RestoreSizeAfterLosingHeart(player);
             }
-            if (heartsList.Count <= 2 && heartsList.Count >= 1)
+            if (vidas <= 2 && vidas >= 1)
             {
                 PowerUp powerUp = FindObjectOfType<PowerUp>();
                 if (powerUp != null)
@@ -45,14 +47,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //metodo para reiniciar las vidas del jugador
-    public void ResetHearts()
+    public void SaveScore()
     {
-        vidas = 3;
-        foreach (GameObject corazon in heartsList)
+        ScoreCounter scoreCounter = FindObjectOfType<ScoreCounter>();
+        if (scoreCounter != null)
         {
-            corazon.SetActive(true);
+            finalScore = scoreCounter.GetFinalScore();
+            PlayerPrefs.SetInt("Score", finalScore);
+            PlayerPrefs.Save();
         }
+    }
+
+    public List<int> GetHighScore()
+    {
+        List<int> scoresList = new List<int>();
+
+        for (int i = 0; i < 5; i++)
+        {
+            scoresList.Add(PlayerPrefs.GetInt("Score" + i));
+        }
+
+        scoresList.Sort((a, b) => b.CompareTo(a));
+
+
+        return scoresList;
     }
 
     // Método que se ejecuta cuando el jugador pierde el juego.

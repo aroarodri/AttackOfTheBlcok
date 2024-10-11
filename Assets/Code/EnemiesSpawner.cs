@@ -22,21 +22,8 @@ public class EnemiesSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
-
-    public void RestarGame()
-    {
-        _nName = 0;
-        CancelInvoke();
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
-        {
-            Destroy(enemy);
-        }
-
-        InvokeRepeating(nameof(SpawnEnemies), 0f, 10f);
-    }
-
 
     // Genera los puntos de spawn de los enemigos aleatoriamente.
     private void GenerateSpawnPoints()

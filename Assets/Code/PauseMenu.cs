@@ -32,24 +32,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    public void Restart()
-    {
-        Time.timeScale = 1;
-        pauseMenu.SetActive(false);
-        EnemiesSpawner enemiesSpawner = FindObjectOfType<EnemiesSpawner>();
-
-        if (enemiesSpawner != null)
-        {
-            enemiesSpawner.RestarGame();
-        }
-
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        if (gameManager != null)
-        {
-            gameManager.ResetHearts();
-        }
-    }
-
     public void Home()
     {
         Time.timeScale = 1;
