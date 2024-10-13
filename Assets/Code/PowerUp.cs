@@ -5,6 +5,7 @@ public class PowerUp : MonoBehaviour
 {
     // Variables
     public GameObject powerUpToSpawn;
+    public GameObject powerUpToSpawn2;
     private Vector3 randomSpawnPoint;
 
 
@@ -15,6 +16,8 @@ public class PowerUp : MonoBehaviour
 
         yield return new WaitForSeconds(interval);
         Instantiate(powerUpToSpawn, randomSpawnPoint, Quaternion.identity);
+        yield return new WaitForSeconds(interval);
+        Instantiate(powerUpToSpawn2, randomSpawnPoint, Quaternion.identity);
     }
 
     // Generar un punto de spawn aleatorio dentro de los límites de la pantalla.

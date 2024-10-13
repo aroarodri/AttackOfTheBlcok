@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip gameSound;
 
     private int vidas = 3;
-    private int finalScore = 3;
+    private int finalScore = 0;
 
     // Metodo que controla la perdida de vidas del jugador.
     // Además, se encarga de generar un power up cuando el jugador pierde una vida.
@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0)
         {
-            SaveScore();
             Lose();
         }
         else
@@ -45,32 +44,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void SaveScore()
-    {
-        ScoreCounter scoreCounter = FindObjectOfType<ScoreCounter>();
-        if (scoreCounter != null)
-        {
-            finalScore = scoreCounter.GetFinalScore();
-            PlayerPrefs.SetInt("Score", finalScore);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public List<int> GetHighScore()
-    {
-        List<int> scoresList = new List<int>();
-
-        for (int i = 0; i < 5; i++)
-        {
-            scoresList.Add(PlayerPrefs.GetInt("Score" + i));
-        }
-
-        scoresList.Sort((a, b) => b.CompareTo(a));
-
-
-        return scoresList;
     }
 
     // Método que se ejecuta cuando el jugador pierde el juego.
@@ -97,6 +70,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Método que activa el power up que convierte al jugador en atacante y puede eliminar a los enemigos.
+    public void ActivatePowerUp2()
+    {
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            Enemy enemy = FindObjectOfType<Enemy>();
+            if (enemy != null)
+                StartCoroutine(DeactivateAttackerMode(5f, enemy));
+        }
+    }
+
     // Corrutina que restaura el tamaño del jugador después de un tiempo determinado.
     private IEnumerator RestoreSizeAfterDelay(float delay, Player player)
     {
@@ -108,5 +93,11 @@ public class GameManager : MonoBehaviour
     private void RestoreSizeAfterLosingHeart(Player player)
     {
         player.transform.localScale = player.originalScale; // Restaurar el tamaño original del jugador
+    }
+
+    private IEnumerator DeactivateAttackerMode(float delay, Enemy enemy)
+    {
+        yield return new WaitForSeconds(delay);
+        enemy.isAttackerMode = false;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -48,6 +49,15 @@ public class Player : MonoBehaviour
             audioSource.Play();
 
             FindObjectOfType<GameManager>().ActivatePowerUp();
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("PowerUp2"))
+        {
+            audioSource.clip = powerUpSound;
+            audioSource.Play();
+
+            FindObjectOfType<GameManager>().ActivatePowerUp2();
             Destroy(collision.gameObject);
         }
     }

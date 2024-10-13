@@ -9,9 +9,6 @@ public class EnemiesSpawner : MonoBehaviour
     private Vector3 _spawnAreaSize = new(10, 10, 10);
     private Vector3[] _spawnPoints;
 
-    private readonly float _spawnInterval = 10f; // Intervalo de tiempo para generar más enemigos
-    private float _timeSinceLastSpawn = 0f;
-
     private int _nName;
 
     void Start()
