@@ -9,9 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> heartsList;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip gameSound;
+    [SerializeField] private ScoreCounter scoreCounter;
 
     private int vidas = 3;
-    private int finalScore = 0;
 
     // Metodo que controla la perdida de vidas del jugador.
     // Además, se encarga de generar un power up cuando el jugador pierde una vida.
@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0)
         {
+            // Guarda la puntuación final del jugador.
+            int currentScore = scoreCounter.GetFinalScore();
+            scoreCounter.SaveScore(currentScore);
             Lose();
         }
         else
@@ -34,13 +37,22 @@ public class GameManager : MonoBehaviour
                 if (player != null)
                     RestoreSizeAfterLosingHeart(player);
             }
-            if (vidas <= 2 && vidas >= 1)
+            if (vidas == 2)
             {
                 PowerUp powerUp = FindObjectOfType<PowerUp>();
                 if (powerUp != null)
                 {
                     powerUp.GenerateSpawnPoint();
-                    StartCoroutine(powerUp.SpwanPowerUp());
+                    StartCoroutine(powerUp.SpwanReducePowerUp());
+                }
+            }
+            if (vidas == 1)
+            {
+                PowerUp powerUp = FindObjectOfType<PowerUp>();
+                if (powerUp != null)
+                {
+                    powerUp.GenerateSpawnPoint();
+                    StartCoroutine(powerUp.SpwanDestroyPowerUp());
                 }
             }
         }
@@ -51,16 +63,19 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = true;
         SceneManager.LoadScene("GameOver");
+        scoreCounter.ResetScore();
     }
 
+    // Método que se ejecuta cuando el jugador quiere volver a la pantalla principal.
     public void Home()
     {
         Cursor.visible = true;
         SceneManager.LoadScene("Home");
+        scoreCounter.ResetScore();
     }
 
     // Método que activa el power up que reduce el tamaño a la mitad del jugador.
-    public void ActivatePowerUp()
+    public void ReducePlayerSizePowerUp()
     {
         Player player = FindObjectOfType<Player>();
         if (player != null)
@@ -70,15 +85,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Método que activa el power up que convierte al jugador en atacante y puede eliminar a los enemigos.
-    public void ActivatePowerUp2()
+    // Método que destruye a todos los enemigos en pantalla.
+    public void DestroyAllEnemiesPowerUp()
     {
-        Player player = FindObjectOfType<Player>();
-        if (player != null)
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemies)
         {
-            Enemy enemy = FindObjectOfType<Enemy>();
-            if (enemy != null)
-                StartCoroutine(DeactivateAttackerMode(5f, enemy));
+            Destroy(enemy.gameObject);
         }
     }
 
@@ -89,15 +102,11 @@ public class GameManager : MonoBehaviour
         player.transform.localScale = player.originalScale; // Restaurar el tamaño original del jugador
     }
 
-    // Método que restaura el tamaño del jugador después de perder una vida.
+    // Método que restaura el tamaño del jugador después de perder una vida y para la corrutina anterior.
     private void RestoreSizeAfterLosingHeart(Player player)
     {
         player.transform.localScale = player.originalScale; // Restaurar el tamaño original del jugador
+        StopCoroutine(nameof(RestoreSizeAfterDelay));
     }
 
-    private IEnumerator DeactivateAttackerMode(float delay, Enemy enemy)
-    {
-        yield return new WaitForSeconds(delay);
-        enemy.isAttackerMode = false;
-    }
 }

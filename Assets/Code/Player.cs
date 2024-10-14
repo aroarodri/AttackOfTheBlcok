@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip powerUpSound, dieSound;
 
-    // SE realiza la configuración inicial.
+    // Se realiza la configuración inicial.
     void Start()
     {
         Cursor.visible = false;
@@ -32,6 +31,7 @@ public class Player : MonoBehaviour
 
     // Se detecta la colisión del jugador con un enemigo. En caso de colisión, se pierde el juego.
     // Si se colisiona con un power up, se activa el power up.
+    // Si se colisiona con un power up 2, se activa el power up 2, que destruye a todos los enemigos.
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && !isInvincible)
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
             audioSource.clip = powerUpSound;
             audioSource.Play();
 
-            FindObjectOfType<GameManager>().ActivatePowerUp();
+            FindObjectOfType<GameManager>().ReducePlayerSizePowerUp();
             Destroy(collision.gameObject);
         }
 
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
             audioSource.clip = powerUpSound;
             audioSource.Play();
 
-            FindObjectOfType<GameManager>().ActivatePowerUp2();
+            FindObjectOfType<GameManager>().DestroyAllEnemiesPowerUp();
             Destroy(collision.gameObject);
         }
     }
