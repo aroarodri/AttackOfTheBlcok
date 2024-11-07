@@ -5,7 +5,7 @@ public class EnemiesSpawner : MonoBehaviour
     // Variables
     public SpawnEnemiesManager spawnManagerValues;
 
-    private readonly int _numberOfSpawnPoints = 2;
+    private readonly int _numberOfSpawnPoints = 1;
     private Vector3 _spawnAreaSize = new(10, 10, 10);
     private Vector3[] _spawnPoints;
     private int _nName;
@@ -13,7 +13,8 @@ public class EnemiesSpawner : MonoBehaviour
     // Inicializa el método SpawnEnemies cada 10 segundos.
     void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemies), 0f, 10f);
+        SpawnEnemies();
+        //InvokeRepeating(nameof(SpawnEnemies), 0f, 10f);
     }
 
     // Genera los puntos de spawn de los enemigos aleatoriamente.

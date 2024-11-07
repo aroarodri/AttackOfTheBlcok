@@ -7,9 +7,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip crashSound;
 
-    private float speed = 200f;
-    private readonly float velocityMultiplier = 0.01f;
-    private readonly float speedIncrement = 50f; // Incremento de velocidad
+    private float speed = 50f;
+    private readonly float velocityMultiplier = 0.2f;
+    private readonly float speedIncrement = 10f; // Incremento de velocidad
     private Vector2 startVelocity;
     private Vector2 startPosition;
 
@@ -17,15 +17,21 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        startVelocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * speed * velocityMultiplier;
+        startVelocity = speed * velocityMultiplier * new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         rigidBody2D.velocity = startVelocity;
     }
 
     // Se actualiza la velocidad del enemigo.
     void FixedUpdate()
     {
-        speed += speedIncrement * Time.fixedDeltaTime;
-        rigidBody2D.velocity = rigidBody2D.velocity.normalized * speed * velocityMultiplier;
+
+        speed += Time.fixedDeltaTime;
+
+        rigidBody2D.velocity = new Vector2(speed * velocityMultiplier, speed * velocityMultiplier) * rigidBody2D.velocity.normalized;
+
+        Debug.Log(speed);
+        Debug.Log(speed * velocityMultiplier);
+        Debug.Log(rigidBody2D.velocity);
     }
 
     // Se detecta la colisión del enemigo con un objeto. En caso de colisión, se ajusta la velocidad del enemigo.
@@ -37,7 +43,7 @@ public class Enemy : MonoBehaviour
             audioSource.clip = crashSound;
             audioSource.Play();
         }
-        VelocityFix();
+        //VelocityFix();
     }
 
     // Se ajusta la velocidad del enemigo, en caso de que sea menor a un valor mínimo, para evitar que el enemigo quede detenido.
@@ -49,13 +55,13 @@ public class Enemy : MonoBehaviour
         if (Mathf.Abs(rigidBody2D.velocity.x) < minVelocity)
         {
             velocityDelta = Random.value < 0.05f ? velocityDelta : -velocityDelta;
-            rigidBody2D.velocity += new Vector2(velocityDelta, 0f);
+            rigidBody2D.velocity = new Vector2(speed, 0f);
         }
 
         if (Mathf.Abs(rigidBody2D.velocity.y) < minVelocity)
         {
             velocityDelta = Random.value < 0.05f ? velocityDelta : -velocityDelta;
-            rigidBody2D.velocity += new Vector2(velocityDelta, 0f);
+            rigidBody2D.velocity = new Vector2(speed, 0f);
         }
     }
 }

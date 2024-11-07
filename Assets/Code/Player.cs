@@ -34,32 +34,32 @@ public class Player : MonoBehaviour
     // Si se colisiona con un power up 2, se activa el power up 2, que destruye a todos los enemigos.
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && !isInvincible)
-        {
-            audioSource.clip = dieSound;
-            audioSource.Play();
+        //if (collision.gameObject.CompareTag("Enemy") && !isInvincible)
+        //{
+        //    audioSource.clip = dieSound;
+        //    audioSource.Play();
 
-            FindObjectOfType<GameManager>().LoseHeart();
-            StartCoroutine(BecomeInvincible());
-        }
+        //    FindObjectOfType<GameManager>().LoseHeart();
+        //    StartCoroutine(BecomeInvincible());
+        //}
 
-        if (collision.gameObject.CompareTag("PowerUp"))
-        {
-            audioSource.clip = powerUpSound;
-            audioSource.Play();
+        //if (collision.gameObject.CompareTag("PowerUp"))
+        //{
+        //    audioSource.clip = powerUpSound;
+        //    audioSource.Play();
 
-            FindObjectOfType<GameManager>().ReducePlayerSizePowerUp();
-            Destroy(collision.gameObject);
-        }
+        //    FindObjectOfType<GameManager>().ReducePlayerSizePowerUp();
+        //    Destroy(collision.gameObject);
+        //}
 
-        if (collision.gameObject.CompareTag("PowerUp2"))
-        {
-            audioSource.clip = powerUpSound;
-            audioSource.Play();
+        //if (collision.gameObject.CompareTag("PowerUp2"))
+        //{
+        //    audioSource.clip = powerUpSound;
+        //    audioSource.Play();
 
-            FindObjectOfType<GameManager>().DestroyAllEnemiesPowerUp();
-            Destroy(collision.gameObject);
-        }
+        //    FindObjectOfType<GameManager>().DestroyAllEnemiesPowerUp();
+        //    Destroy(collision.gameObject);
+        //}
     }
 
     // Corrutina para manejar la invencibilidad
