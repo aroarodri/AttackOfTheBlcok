@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip crashSound;
 
-    private float speed = 50f;
+    private float speed = 0.5f;
     private readonly float velocityMultiplier = 0.2f;
     private readonly float speedIncrement = 10f; // Incremento de velocidad
     private Vector2 startVelocity;
@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        startVelocity = speed * velocityMultiplier * new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        startVelocity = speed * new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         rigidBody2D.velocity = startVelocity;
     }
 
@@ -27,11 +27,9 @@ public class Enemy : MonoBehaviour
 
         speed += Time.fixedDeltaTime;
 
-        rigidBody2D.velocity = new Vector2(speed * velocityMultiplier, speed * velocityMultiplier) * rigidBody2D.velocity.normalized;
+        rigidBody2D.velocity = new Vector2(speed, speed) * rigidBody2D.velocity.normalized;
 
         Debug.Log(speed);
-        Debug.Log(speed * velocityMultiplier);
-        Debug.Log(rigidBody2D.velocity);
     }
 
     // Se detecta la colisión del enemigo con un objeto. En caso de colisión, se ajusta la velocidad del enemigo.
