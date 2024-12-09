@@ -9,9 +9,10 @@ public class Enemy1 : MonoBehaviour
 
     private float initialSpeed = 0.5f;
     private float speed = 0.5f;
-    float accelerationFactor = 0.1f;
-    private readonly float velocityMultiplier = 0.02f;
-    private readonly float speedIncrement = 10f; // Incremento de velocidad
+    private float accelerationFactor = 0.1f;
+
+    //private readonly float velocityMultiplier = 0.02f;
+    //private readonly float speedIncrement = 10f; // Incremento de velocidad
     private Vector2 startVelocity;
     private Vector2 startPosition;
 
@@ -23,10 +24,9 @@ public class Enemy1 : MonoBehaviour
         rigidBody2D.velocity = startVelocity;
     }
 
-    // Reemplaza la función FixedUpdate existente para lograr una aceleración lineal en lugar de exponencial.
+    // Se actualiza la velocidad del enemigo de manera exponencial.
     void FixedUpdate()
     {
-
         speed = initialSpeed * Mathf.Exp(accelerationFactor * Time.time);
 
         rigidBody2D.velocity = new Vector2(speed, speed) * rigidBody2D.velocity.normalized;

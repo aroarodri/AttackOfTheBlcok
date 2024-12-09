@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AudioClip crashSound;
 
     private float speed = 0.5f;
-    private readonly float velocityMultiplier = 0.2f;
-    private readonly float speedIncrement = 10f; // Incremento de velocidad
+    //private readonly float velocityMultiplier = 0.2f;
+    //private readonly float speedIncrement = 10f; // Incremento de velocidad
     private Vector2 startVelocity;
     private Vector2 startPosition;
 
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
         rigidBody2D.velocity = startVelocity;
     }
 
-    // Se actualiza la velocidad del enemigo.
+    // Se actualiza la velocidad del enemigo de manera lineal.
     void FixedUpdate()
     {
         speed += Time.fixedDeltaTime;
