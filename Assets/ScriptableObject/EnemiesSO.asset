@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EnemiesSO
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 5689118604299278584, guid: 474d56e095c42e84bb3eafe38b055b73, type: 3}
+  prefabToSpawn2: {fileID: 5689118604299278584, guid: 478aa4d26243fab41ace6841d4fb6c49, type: 3}
   name: Eagle

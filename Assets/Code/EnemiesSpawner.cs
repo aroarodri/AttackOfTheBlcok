@@ -14,6 +14,7 @@ public class EnemiesSpawner : MonoBehaviour
     void Start()
     {
         SpawnEnemies();
+        SpawnEnemies1();
         //InvokeRepeating(nameof(SpawnEnemies), 0f, 10f);
     }
 
@@ -44,6 +45,29 @@ public class EnemiesSpawner : MonoBehaviour
         for (int i = 0; i < _numberOfSpawnPoints; i++)
         {
             GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn, _spawnPoints[currentSpawnPointIndex], Quaternion.identity);
+
+            enemy.name = spawnManagerValues.name + _nName;
+
+            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % _spawnPoints.Length;
+
+            _nName++;
+        }
+    }
+
+    // Genera los enemigos en los puntos de spawn.
+    private void SpawnEnemies1()
+    {
+        GenerateSpawnPoints();
+        int currentSpawnPointIndex = 0;
+
+        if (_nName >= 10)
+        {
+            return;
+        }
+
+        for (int i = 0; i < _numberOfSpawnPoints; i++)
+        {
+            GameObject enemy = Instantiate(spawnManagerValues.prefabToSpawn2, _spawnPoints[currentSpawnPointIndex], Quaternion.identity);
 
             enemy.name = spawnManagerValues.name + _nName;
 

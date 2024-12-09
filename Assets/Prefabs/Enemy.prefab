@@ -131,6 +131,7 @@ MonoBehaviour:
   rigidBody2D: {fileID: 6205290706834953915}
   audioSource: {fileID: 9079793221946469099}
   crashSound: {fileID: 8300000, guid: e575733eedb723b4d90dc638ffb7ff9f, type: 3}
+  linealText: {fileID: 3170673211101931141, guid: d8066660d86310a4f93033518af0cca6, type: 3}
 --- !u!60 &5282111607032432489
 PolygonCollider2D:
   m_ObjectHideFlags: 0

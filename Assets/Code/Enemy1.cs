@@ -1,14 +1,16 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy1 : MonoBehaviour
 {
     // Variables
     [SerializeField] private Rigidbody2D rigidBody2D;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip crashSound;
 
+    private float initialSpeed = 0.5f;
     private float speed = 0.5f;
-    private readonly float velocityMultiplier = 0.2f;
+    float accelerationFactor = 0.1f;
+    private readonly float velocityMultiplier = 0.02f;
     private readonly float speedIncrement = 10f; // Incremento de velocidad
     private Vector2 startVelocity;
     private Vector2 startPosition;
@@ -21,14 +23,15 @@ public class Enemy : MonoBehaviour
         rigidBody2D.velocity = startVelocity;
     }
 
-    // Se actualiza la velocidad del enemigo.
+    // Reemplaza la función FixedUpdate existente para lograr una aceleración lineal en lugar de exponencial.
     void FixedUpdate()
     {
-        speed += Time.fixedDeltaTime;
+
+        speed = initialSpeed * Mathf.Exp(accelerationFactor * Time.time);
 
         rigidBody2D.velocity = new Vector2(speed, speed) * rigidBody2D.velocity.normalized;
 
-        Debug.Log("LINEAL:" + speed);
+        Debug.Log("EXPO: " + speed);
     }
 
     // Se detecta la colisión del enemigo con un objeto. En caso de colisión, se ajusta la velocidad del enemigo.
@@ -40,9 +43,11 @@ public class Enemy : MonoBehaviour
             audioSource.clip = crashSound;
             audioSource.Play();
         }
-        if (collision.gameObject.CompareTag("Enemy1"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
+            // ignorar el choque con otro enemigo
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(), true);
+
         }
         //VelocityFix();
     }

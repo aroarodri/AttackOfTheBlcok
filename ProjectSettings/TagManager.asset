@@ -8,6 +8,7 @@ TagManager:
   - PowerUp
   - Wall
   - PowerUp2
+  - Enemy1
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ public class SpawnEnemiesManager : ScriptableObject
 {
     // Variables
     public GameObject prefabToSpawn;
+    public GameObject prefabToSpawn2;
 
     public new string name;
 }
